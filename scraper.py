@@ -45,7 +45,8 @@ async def get_article_links(page) -> list[str]:
         if not next_btn:
             break
         await next_btn.click()
-        await page.wait_for_load_state("networkidle")
+        await page.wait_for_load_state("load")
+        await asyncio.sleep(1)
 
     return links
 
@@ -148,7 +149,8 @@ async def main():
 
         # 1. 一覧ページから記事リンク収集
         print(f"\n[1/2] 一覧ページを取得中: {MEDIA_URL}")
-        await page.goto(MEDIA_URL, wait_until="networkidle", timeout=30000)
+        await page.goto(MEDIA_URL, wait_until="domcontentloaded", timeout=30000)
+        await asyncio.sleep(2)
         article_links = await get_article_links(page)
         print(f"  合計 {len(article_links)} 件の記事を検出\n")
 
