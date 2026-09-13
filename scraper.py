@@ -135,7 +135,7 @@ async def main():
     print("=== Yahoo!ニュース JNN スクレイパー 開始 ===")
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(headless=True, executable_path="/opt/pw-browsers/chromium")
         context = await browser.new_context(
             user_agent=(
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
